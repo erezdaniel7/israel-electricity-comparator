@@ -79,7 +79,7 @@ body { min-height: 100vh; }
 .main-container {
   max-width: 930px;
   margin: 2rem auto;
-  padding: 0 1rem 4rem;
+  padding: 0 1rem;
 }
 
 /* ===== CARD ===== */
@@ -316,6 +316,10 @@ body { min-height: 100vh; }
 .results-card {
   overflow: hidden;
   border-radius: 0;
+}
+
+#resultsTable {
+  margin-inline: 20px;
 }
 .results-header {
   padding: 1rem 1.25rem;
