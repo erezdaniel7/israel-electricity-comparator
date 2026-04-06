@@ -410,7 +410,7 @@ function renderResults(results, readings, tariff, period, year, month) {
       <td>${fmtMoney(r.cost)} ₪</td>
       <td>${savingHtml}</td>
       <td>${savingPctHtml}</td>
-      <td style="font-size:0.8rem;color:var(--text-muted);max-width:220px">${esc(r.plan.notes || '')}</td>
+      <td style="font-size:0.8rem;color:var(--text-muted)">${esc(r.plan.notes || '')}</td>
     `;
     tbody.appendChild(tr);
   }
