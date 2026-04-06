@@ -115,6 +115,16 @@
       <span class="chevron">▼</span>
     </div>
     <div class="card-body" id="uploadBody">
+      <div class="saved-file-notice" id="savedFileNotice" style="display:none">
+        <span class="saved-file-icon">💾</span>
+        <div class="saved-file-info">
+          <strong>קובץ אחרון:</strong> <span id="savedFileName">—</span>
+        </div>
+        <div class="saved-file-actions">
+          <button class="btn-restore" onclick="loadSavedFile()">טען קובץ שמור</button>
+          <button class="btn-delete-saved" onclick="deleteSavedFile()" title="מחק קובץ שמור">🗑️</button>
+        </div>
+      </div>
       <div class="upload-zone" id="uploadZone"
            ondragover="handleDragOver(event)"
            ondragleave="handleDragLeave(event)"

@@ -12,6 +12,9 @@ let availableYears = [];
 let availableMonths = [];  // "YYYY-MM" strings
 let plans = [];
 
+const LS_CSV_KEY  = 'electricityData_csv';
+const LS_NAME_KEY = 'electricityData_name';
+
 // ── Init ──────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
   plans = typeof PLANS !== 'undefined' ? PLANS : [];
@@ -23,6 +26,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Instructions start collapsed
   document.getElementById('instructionsBody').classList.add('collapsed');
   handlePeriodChange();
+  // Restore last uploaded file from localStorage
+  restoreSavedFile();
 });
 
 // ── Card toggle ────────────────────────────────────────────
@@ -61,11 +66,13 @@ function processFile(file) {
   const reader = new FileReader();
   reader.onload = (e) => {
     try {
-      parsedReadings = parseIecCsv(e.target.result);
+      const rawCsv = e.target.result;
+      parsedReadings = parseIecCsv(rawCsv);
       if (parsedReadings.length === 0) {
         showError('לא נמצאו נתוני צריכה בקובץ. אנא ודאו שהורדתם את הקובץ הנכון מאתר חברת החשמל.');
         return;
       }
+      saveFileToStorage(file.name, rawCsv);
       onFileLoaded(file, parsedReadings);
     } catch (err) {
       showError('שגיאה בעיבוד הקובץ: ' + err.message);
@@ -73,6 +80,57 @@ function processFile(file) {
     }
   };
   reader.readAsText(file, 'UTF-8');
+}
+
+// ── LocalStorage save/restore ──────────────────────────────
+function saveFileToStorage(name, csv) {
+  try {
+    localStorage.setItem(LS_NAME_KEY, name);
+    localStorage.setItem(LS_CSV_KEY, csv);
+    updateSavedFileBanner(name);
+  } catch (e) {
+    // Storage full or unavailable — silently skip
+    console.warn('LocalStorage unavailable:', e);
+  }
+}
+
+function restoreSavedFile() {
+  try {
+    const name = localStorage.getItem(LS_NAME_KEY);
+    const csv  = localStorage.getItem(LS_CSV_KEY);
+    if (name && csv) updateSavedFileBanner(name);
+  } catch (e) { /* ignore */ }
+}
+
+function loadSavedFile() {
+  try {
+    const name = localStorage.getItem(LS_NAME_KEY);
+    const csv  = localStorage.getItem(LS_CSV_KEY);
+    if (!name || !csv) return;
+    clearError();
+    parsedReadings = parseIecCsv(csv);
+    if (parsedReadings.length === 0) {
+      showError('הקובץ השמור אינו תקין. אנא העלו קובץ חדש.');
+      return;
+    }
+    onFileLoaded({ name }, parsedReadings);
+  } catch (e) {
+    showError('שגיאה בטעינת הקובץ השמור: ' + e.message);
+  }
+}
+
+function deleteSavedFile() {
+  try {
+    localStorage.removeItem(LS_NAME_KEY);
+    localStorage.removeItem(LS_CSV_KEY);
+  } catch (e) { /* ignore */ }
+  document.getElementById('savedFileNotice').style.display = 'none';
+}
+
+function updateSavedFileBanner(name) {
+  const notice = document.getElementById('savedFileNotice');
+  document.getElementById('savedFileName').textContent = name;
+  notice.style.display = 'flex';
 }
 
 function onFileLoaded(file, readings) {
@@ -313,6 +371,32 @@ function calcPlanCost(readings, plan, tariff) {
     return { cost, discountedKwh, totalKwh };
   }
 
+  if (plan.discountType === 'tiered_monthly_amount') {
+    // Group readings by calendar month
+    const monthMap = {};
+    for (const r of readings) {
+      const key = `${r.date.getFullYear()}-${r.date.getMonth()}`;
+      if (!monthMap[key]) monthMap[key] = { kwh: 0, count: 0, year: r.date.getFullYear(), month: r.date.getMonth() };
+      monthMap[key].kwh   += r.kwh;
+      monthMap[key].count += 1;
+    }
+    let totalCost = 0;
+    for (const { kwh: monthKwh, count, year, month } of Object.values(monthMap)) {
+      // Extrapolate to a full month for tier selection (15-min slots expected in the month)
+      const daysInMonth  = new Date(year, month + 1, 0).getDate();
+      const expectedSlots = daysInMonth * 96;
+      const coverage      = Math.min(count / expectedSlots, 1);
+      const fullMonthAmount = (monthKwh * tariff) / coverage;
+
+      // Tier is chosen on the extrapolated full-month amount
+      const tier     = plan.tiers.find(t => t.maxMonthlyAmount === null || fullMonthAmount <= t.maxMonthlyAmount);
+      const discount = (tier ? tier.discountPercent : plan.discountPercent) / 100;
+      // Discount applied to actual (partial) consumption only
+      totalCost += (monthKwh * tariff) * (1 - discount);
+    }
+    return { cost: totalCost, discountedKwh: totalKwh, totalKwh };
+  }
+
   if (plan.discountType === 'accumulate') {
     // Pazgas yellow: 10% accumulation capped at 600₪/year
     // We compute full-year ratio from the dataset period
@@ -406,7 +490,7 @@ function renderResults(results, readings, tariff, period, year, month) {
         ${esc(r.plan.planName)}
         ${conditionHtml}
       </td>
-      <td>${r.plan.isBaseline ? '—' : r.plan.discountPercent + '%'}</td>
+      <td>${r.plan.isBaseline ? '—' : (r.plan.discountLabel || r.plan.discountPercent + '%')}</td>
       <td>${fmtMoney(r.cost)} ₪</td>
       <td>${savingHtml}</td>
       <td>${savingPctHtml}</td>

@@ -161,6 +161,45 @@ body { min-height: 100vh; }
 .iec-link:hover { text-decoration: underline; }
 
 /* ===== FILE UPLOAD ===== */
+.saved-file-notice {
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #eef4ff;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  border: 1.5px solid var(--primary-light);
+  flex-wrap: wrap;
+}
+.saved-file-icon { font-size: 1.4rem; flex-shrink: 0; }
+.saved-file-info { flex: 1; font-size: 0.9rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.saved-file-actions { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
+.btn-restore {
+  padding: 0.4rem 0.9rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+  transition: opacity 0.15s;
+}
+.btn-restore:hover { opacity: 0.85; }
+.btn-delete-saved {
+  padding: 0.35rem 0.6rem;
+  background: transparent;
+  color: var(--danger);
+  border: 1.5px solid var(--danger);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-delete-saved:hover { background: var(--danger); color: white; }
+
 .upload-zone {
   border: 2.5px dashed var(--primary-light);
   border-radius: var(--radius);

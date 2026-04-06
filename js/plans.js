@@ -20,13 +20,20 @@ const PLANS = [
     "id": "cellcom_small_bill",
     "company": "סלקום אנרג'י",
     "planName": "חשבון קטן הנחה גדולה",
-    "discountType": "fixed",
+    "discountType": "tiered_monthly_amount",
     "discountPercent": 5,
+    "discountLabel": "5%–10%",
+    "tiers": [
+      { "maxMonthlyAmount": 149, "discountPercent": 10 },
+      { "maxMonthlyAmount": 199, "discountPercent": 8 },
+      { "maxMonthlyAmount": 299, "discountPercent": 6 },
+      { "maxMonthlyAmount": null, "discountPercent": 5 }
+    ],
     "discountDays": [],
     "discountHoursStart": null,
     "discountHoursEnd": null,
     "condition": null,
-    "notes": "הנחה של 5%–10% בכל שעות היממה, בכל ימות השבוע. אחוז ההנחה משתנה מחודש לחודש לפי גובה הצריכה (מוצג כאן כ-5% – הנחה מינימלית)",
+    "notes": "הנחה בכל שעות היממה לפי גובה הצריכה החודשית: עד 149 ₪ ← 10%, עד 199 ₪ ← 8%, עד 299 ₪ ← 6%, מעל 300 ₪ ← 5%. מחושב בנפרד לכל חודש.",
     "link": "https://www.kamaze.co.il/Companies/82227/Cellcom/electrical-power"
   },
   {

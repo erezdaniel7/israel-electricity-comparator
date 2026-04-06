@@ -41,8 +41,10 @@ Each plan object has the following shape:
   id:                 string,   // unique identifier
   company:            string,   // supplier name (Hebrew)
   planName:           string,   // plan name (Hebrew)
-  discountType:       "none" | "fixed" | "time_of_use" | "time_of_use_night" | "accumulate",
-  discountPercent:    number,   // % discount applied to eligible consumption
+  discountType:       "none" | "fixed" | "time_of_use" | "time_of_use_night" | "accumulate" | "tiered_monthly_amount",
+  discountPercent:    number,   // % discount (fallback for tiered plans)
+  discountLabel:      string,   // optional display override e.g. "5%–10%" (tiered plans)
+  tiers:              Array<{ maxMonthlyAmount: number|null, discountPercent: number }>, // tiered_monthly_amount only
   discountDays:       number[], // days of week (0=Sun … 6=Sat) for time_of_use plans
   discountHoursStart: number | null,
   discountHoursEnd:   number | null,
@@ -64,7 +66,14 @@ Update `PLANS_LAST_UPDATED` (top of `plans.js`) whenever you change rates.
 | `fixed`              | `kwh × tariff × (1 − discount%)` |
 | `time_of_use`        | Discount applied only to slots where `day ∈ discountDays` AND `discountHoursStart ≤ hour < discountHoursEnd` |
 | `time_of_use_night`  | Discount for `hour ≥ 23` on Sun–Thu **or** `hour < 7` on Mon–Fri (handles midnight crossover) |
-| `accumulate`         | Cashback capped at `maxYearlySavings` per year, pro-rated to the selected period |
+| `accumulate`             | Cashback capped at `maxYearlySavings` per year, pro-rated to the selected period |
+| `tiered_monthly_amount`  | Readings grouped by calendar month; each month's full-month amount (extrapolated from coverage) selects a discount tier from the `tiers` array |
+
+## LocalStorage
+
+The last successfully uploaded CSV is stored in `localStorage` (`electricityData_csv` / `electricityData_name`).  
+On next visit a banner appears above the upload zone offering to reload it or delete it.  
+No data is ever sent to a server — storage is entirely in the user's own browser.
 
 ## CSV format
 
