@@ -1,5 +1,7 @@
 # Israel Electricity Plan Comparator ⚡
 
+**Live app:** https://erezdaniel7.github.io/israel-electricity-comparator/
+
 A static, client-side web app that lets Israeli households upload their smart-meter CSV from IEC (Israel Electric Company) and instantly compare costs across all private electricity suppliers.
 
 > Built with [GitHub Copilot CLI](https://github.com/features/copilot).
