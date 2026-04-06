@@ -185,7 +185,7 @@
     ⚡ נתח והשווה תוכניות
   </button>
 
-  <!-- RESULTS -->
+  <!-- RESULTS (banner + summary inside container) -->
   <div id="results">
 
     <!-- Best plan banner -->
@@ -217,46 +217,48 @@
       </div>
     </div>
 
-    <!-- Plans table -->
-    <div class="card results-card">
-      <div class="results-header">
-        <h2>השוואת כל התוכניות</h2>
-        <small id="resultsSubtitle">—</small>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>דירוג</th>
-              <th>חברה</th>
-              <th>תוכנית</th>
-              <th>הנחה</th>
-              <th>עלות משוערת (₪)</th>
-              <th>חיסכון (₪)</th>
-              <th>חיסכון (%)</th>
-              <th>תנאי</th>
-            </tr>
-          </thead>
-          <tbody id="resultsTableBody"></tbody>
-        </table>
-      </div>
-      <div class="card-body" style="padding-top:0.5rem">
-        <div class="note-box">
-          <span class="note-icon">⚠️</span>
-          <span>
-            <strong>הערה:</strong> חישוב זה הוא הערכה המבוססת על נתוני המונה שלכם ואחוזי ההנחה המפורסמים.
-            תוכניות עם הנחה בשעות ספציפיות מחושבות לפי הצריכה באותן שעות בימים א'–ה'.
-            המחירים הסופיים עשויים לכלול עמלות ורכיבים נוספים – בדקו מול כל ספק.
-            המידע מגיע מ-<a class="iec-link" href="https://www.kamaze.co.il/Compare/52/electrical-power" target="_blank" rel="noopener">kamaze.co.il ↗</a>
-            ועשוי להשתנות.
-          </span>
-        </div>
-      </div>
-    </div>
-
   </div><!-- /results -->
 
 </main>
+
+<!-- Plans table – full width, outside main-container -->
+<div id="resultsTable" style="display:none">
+  <div class="card results-card">
+    <div class="results-header">
+      <h2>השוואת כל התוכניות</h2>
+      <small id="resultsSubtitle">—</small>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>דירוג</th>
+            <th>חברה</th>
+            <th>תוכנית</th>
+            <th>הנחה</th>
+            <th>עלות משוערת (₪)</th>
+            <th>חיסכון (₪)</th>
+            <th>חיסכון (%)</th>
+            <th>תנאי</th>
+          </tr>
+        </thead>
+        <tbody id="resultsTableBody"></tbody>
+      </table>
+    </div>
+    <div class="card-body" style="padding-top:0.5rem">
+      <div class="note-box">
+        <span class="note-icon">⚠️</span>
+        <span>
+          <strong>הערה:</strong> חישוב זה הוא הערכה המבוססת על נתוני המונה שלכם ואחוזי ההנחה המפורסמים.
+          תוכניות עם הנחה בשעות ספציפיות מחושבות לפי הצריכה באותן שעות בימים א'–ה'.
+          המחירים הסופיים עשויים לכלול עמלות ורכיבים נוספים – בדקו מול כל ספק.
+          המידע מגיע מ-<a class="iec-link" href="https://www.kamaze.co.il/Compare/52/electrical-power" target="_blank" rel="noopener">kamaze.co.il ↗</a>
+          ועשוי להשתנות.
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer">

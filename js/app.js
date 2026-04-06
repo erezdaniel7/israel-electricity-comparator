@@ -416,6 +416,7 @@ function renderResults(results, readings, tariff, period, year, month) {
   }
 
   document.getElementById('results').classList.add('visible');
+  document.getElementById('resultsTable').style.display = 'block';
   document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 

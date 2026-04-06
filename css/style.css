@@ -315,9 +315,6 @@ body { min-height: 100vh; }
 /* ===== RESULTS TABLE ===== */
 .results-card {
   overflow: hidden;
-  /* Break out of the 930px container to use full viewport width */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
   border-radius: 0;
 }
 .results-header {
