@@ -1,6 +1,6 @@
-﻿// נתוני תוכניות חשמל – עודכן לאחרונה: אפריל 2025
+﻿// נתוני תוכניות חשמל – עודכן לאחרונה: אפריל 2026
 // מקור: kamaze.co.il
-const PLANS_LAST_UPDATED = 'אפריל 2025';
+const PLANS_LAST_UPDATED = 'אפריל 2026';
 const PLANS = [
   {
     "id": "iec_base",
