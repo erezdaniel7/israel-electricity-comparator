@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>השוואת ספקי חשמל בישראל – גלה כמה תחסוך</title>
+  <meta name="description" content="העלה את קובץ המונה החכם שלך מחברת החשמל וגלה מיד אצל איזה ספק חשמל תחסוך הכי הרבה – השוואה מלאה בין סלקום, בזק, הוט, פזגז, פרטנר, אלקטרה ואמישראגז.">
+  <meta name="keywords" content="השוואת חשמל, ספקי חשמל, רפורמת חשמל, מונה חכם, חיסכון בחשמל, סלקום אנרג'י, בזק אנרג'י, הוט אנרג'י, פזגז חשמל, פרטנר פאוור, אלקטרה פאוור, אמישראגז">
+  <meta name="author" content="Israel Electricity Comparator">
+
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Telegram) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="השוואת ספקי חשמל בישראל – גלה כמה תחסוך">
+  <meta property="og:description" content="העלה את קובץ המונה החכם שלך מחברת החשמל וגלה מיד אצל איזה ספק חשמל תחסוך הכי הרבה. השוואה מלאה בין כל ספקי החשמל הפרטיים בישראל – חינם, ללא הרשמה, ללא שרת.">
+  <meta property="og:locale"      content="he_IL">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="השוואת ספקי חשמל בישראל – גלה כמה תחסוך">
+  <meta name="twitter:description" content="העלה את קובץ המונה החכם שלך מחברת החשמל וגלה מיד אצל איזה ספק חשמל תחסוך הכי הרבה. חינם, ללא הרשמה.">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== LOADING ===== -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <div class="loading-text">מנתח נתונים...</div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <span class="header-icon">⚡</span>
+  <h1>השוואת ספקי <span>חשמל</span> בישראל</h1>
+  <p>העלו קובץ נתוני המונה מחברת החשמל וגלו אצל איזה ספק תחסכו הכי הרבה</p>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="main-container">
+
+  <!-- STEP 1: Instructions -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <div class="step-badge">1</div>
+      <h2>איך להוריד את קובץ נתוני המונה מאתר חברת החשמל?</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" id="instructionsBody">
+      <ol class="instructions-steps">
+        <li>
+          <div>
+            <strong>היכנסו לאזור האישי באתר חברת החשמל</strong>
+            <small>
+              גשו לאתר <a class="iec-link" href="https://www.iec.co.il" target="_blank" rel="noopener">iec.co.il ↗</a>
+              ולחצו על <strong>״אזור אישי״</strong> בפינה הימנית עליונה. התחברו עם תעודת הזהות וסיסמה (או צרו חשבון חדש אם אין לכם).
+            </small>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>עברו לסעיף ״המונה החכם שלי״ / ״נתוני צריכה״</strong>
+            <small>
+              לאחר הכניסה, בתפריט הראשי חפשו את האפשרות <strong>״המונה החכם שלי״</strong> או
+              <strong>״דוחות מונה חכם״</strong>. אם יש לכם מונה חכם מותקן, הנתונים יהיו זמינים שם.
+            </small>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>בחרו טווח תאריכים</strong>
+            <small>
+              בחרו את טווח התאריכים עבורו תרצו לנתח את הצריכה (מומלץ שנה שלמה לפחות לקבלת תוצאה מדויקת).
+              הנתונים נשמרים ברזולוציה של רבע שעה.
+            </small>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>הורידו את הקובץ בפורמט CSV</strong>
+            <small>
+              לחצו על כפתור <strong>״ייצוא לקובץ CSV״</strong> או <strong>״הורדה״</strong>.
+              הקובץ יורד לתיקיית ההורדות שלכם בשם כגון <em>meter_LP_...csv</em>.
+            </small>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>העלו את הקובץ כאן למטה</strong>
+            <small>
+              לחצו על אזור ההעלאה בשלב 2 ובחרו את קובץ ה-CSV שהורדתם.
+              כל העיבוד מתבצע בדפדפן שלכם – אין שליחת מידע אישי לשרת.
+            </small>
+          </div>
+        </li>
+      </ol>
+      <div class="note-box" style="margin-top:1rem">
+        <span class="note-icon">ℹ️</span>
+        <span>
+          <strong>מונה בסיסי?</strong> אם אין לכם מונה חכם, לא ניתן להוריד קובץ נתונים פרטניים.
+          ניתן לבקש התקנת מונה חכם מחברת החשמל (בתשלום חד-פעמי) או לפנות ל-
+          <a class="iec-link" href="https://www.iec.co.il" target="_blank" rel="noopener">103</a> למידע נוסף.
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Upload -->
+  <div class="card">
+    <div class="card-header open" onclick="toggleCard(this)">
+      <div class="step-badge">2</div>
+      <h2>העלאת קובץ נתוני המונה</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" id="uploadBody">
+      <div class="upload-zone" id="uploadZone"
+           ondragover="handleDragOver(event)"
+           ondragleave="handleDragLeave(event)"
+           ondrop="handleDrop(event)">
+        <input type="file" id="fileInput" accept=".csv" onchange="handleFileSelect(event)">
+        <div class="upload-icon">📂</div>
+        <h3>גרירת קובץ CSV לכאן</h3>
+        <p>או לחצו לבחירת קובץ מהמחשב</p>
+        <p style="margin-top:0.3rem; font-size:0.8rem; color:#999">קבצי CSV בלבד – כגון meter_LP_....csv</p>
+      </div>
+      <div class="file-info" id="fileInfo">
+        <span class="file-icon">📄</span>
+        <div>
+          <div class="file-name" id="fileName">—</div>
+          <div class="file-meta" id="fileMeta">—</div>
+        </div>
+      </div>
+      <div class="error-box" id="uploadError">
+        <span>❌</span>
+        <span id="uploadErrorText"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: Settings -->
+  <div class="card">
+    <div class="card-header open" onclick="toggleCard(this)">
+      <div class="step-badge">3</div>
+      <h2>הגדרות</h2>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="card-body" id="settingsBody">
+      <div class="settings-grid">
+        <div class="form-group">
+          <label for="tariffRate">תעריף חברת החשמל (₪ לקוו"ש, כולל מע"מ)</label>
+          <input type="number" id="tariffRate" value="0.5897" min="0.1" max="2" step="0.001">
+        </div>
+        <div class="form-group">
+          <label for="periodType">תקופת הניתוח</label>
+          <select id="periodType" onchange="handlePeriodChange()">
+            <option value="all">כל הנתונים</option>
+            <option value="annual">לפי שנה</option>
+            <option value="monthly">לפי חודש</option>
+          </select>
+        </div>
+        <div class="form-group period-picker" id="yearPicker">
+          <label for="yearSelect">בחר שנה</label>
+          <select id="yearSelect"></select>
+        </div>
+        <div class="form-group period-picker" id="monthPicker">
+          <label for="monthSelect">בחר חודש</label>
+          <select id="monthSelect"></select>
+        </div>
+      </div>
+      <div class="note-box">
+        <span class="note-icon">💡</span>
+        <span>
+          התעריף הביתי של חברת החשמל מתעדכן מעת לעת. לתעריף הנוכחי המדויק עיינו ב-
+          <a class="iec-link" href="https://www.iec.co.il/tariffs" target="_blank" rel="noopener">דף התעריפים של חברת החשמל ↗</a>.
+          ערך ברירת המחדל: 0.5897 ₪/קוו"ש (2024).
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYZE BUTTON -->
+  <button class="btn-analyze" id="analyzeBtn" onclick="runAnalysis()" disabled>
+    ⚡ נתח והשווה תוכניות
+  </button>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <!-- Best plan banner -->
+    <div class="best-plan-banner" id="bestPlanBanner">
+      <span class="trophy">🏆</span>
+      <div>
+        <h3 id="bestPlanTitle">—</h3>
+        <p id="bestPlanDesc">—</p>
+      </div>
+      <div class="savings-amount" id="bestPlanSavings">—</div>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="results-summary">
+      <div class="summary-card">
+        <div class="label">סה"כ צריכה</div>
+        <div class="value" id="totalKwh">—</div>
+        <div class="unit">קוו"ש</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">עלות ב-IEC</div>
+        <div class="value" id="totalCostIec">—</div>
+        <div class="unit">₪</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">חיסכון מקסימלי</div>
+        <div class="value" id="maxSavings">—</div>
+        <div class="unit">₪</div>
+      </div>
+    </div>
+
+    <!-- Plans table -->
+    <div class="card results-card">
+      <div class="results-header">
+        <h2>השוואת כל התוכניות</h2>
+        <small id="resultsSubtitle">—</small>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>דירוג</th>
+              <th>חברה</th>
+              <th>תוכנית</th>
+              <th>הנחה</th>
+              <th>עלות משוערת (₪)</th>
+              <th>חיסכון (₪)</th>
+              <th>חיסכון (%)</th>
+              <th>תנאי</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTableBody"></tbody>
+        </table>
+      </div>
+      <div class="card-body" style="padding-top:0.5rem">
+        <div class="note-box">
+          <span class="note-icon">⚠️</span>
+          <span>
+            <strong>הערה:</strong> חישוב זה הוא הערכה המבוססת על נתוני המונה שלכם ואחוזי ההנחה המפורסמים.
+            תוכניות עם הנחה בשעות ספציפיות מחושבות לפי הצריכה באותן שעות בימים א'–ה'.
+            המחירים הסופיים עשויים לכלול עמלות ורכיבים נוספים – בדקו מול כל ספק.
+            המידע מגיע מ-<a class="iec-link" href="https://www.kamaze.co.il/Compare/52/electrical-power" target="_blank" rel="noopener">kamaze.co.il ↗</a>
+            ועשוי להשתנות.
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /results -->
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <p class="disclaimer">
+    ⚠️ המידע המוצג באתר זה הוא לצורכי השכלה כללית בלבד ואינו מהווה ייעוץ פיננסי או התחייבות לכל מחיר שהוא.
+    המחירים ותנאי התוכניות עשויים להשתנות ללא הודעה מוקדמת. השימוש במידע הוא על אחריות המשתמש בלבד.
+  </p>
+  <p>
+    מידע על תוכניות נלקח מ-<a href="https://www.kamaze.co.il/Compare/52/electrical-power" target="_blank" rel="noopener">kamaze.co.il</a> •
+    עדכון אחרון של נתוני התוכניות: <span id="plansUpdatedDate">—</span> •
+    כל הנתונים מעובדים מקומית בדפדפן שלכם בלבד – אין שליחת מידע אישי לשרת כלשהו
+  </p>
+</footer>
+
+<script src="js/plans.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
