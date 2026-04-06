@@ -77,6 +77,7 @@ body { min-height: 100vh; }
 
 /* ===== MAIN LAYOUT ===== */
 .main-container {
+  max-width: 930px;
   margin: 2rem auto;
   padding: 0 1rem 4rem;
 }
@@ -312,7 +313,15 @@ body { min-height: 100vh; }
 .summary-card .unit { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.1rem; }
 
 /* ===== RESULTS TABLE ===== */
-.results-card { overflow: hidden; }
+.results-card {
+  overflow: hidden;
+  /* Break out of the 930px container to use full viewport width */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0;
+}
 .results-header {
   padding: 1rem 1.25rem;
   background: var(--surface2);
