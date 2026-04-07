@@ -260,7 +260,7 @@ function runAnalysis() {
   // Defer to let the UI update
   setTimeout(() => {
     try {
-      const tariff = parseFloat(document.getElementById('tariffRate').value) || 0.5897;
+      const tariff = parseFloat(document.getElementById('tariffRate').value) || 0.6432;
       const period = document.getElementById('periodType').value;
       const year = parseInt(document.getElementById('yearSelect').value);
       const month = document.getElementById('monthSelect').value;
@@ -448,8 +448,11 @@ function renderResults(results, readings, tariff, period, year, month) {
   }
 
   // Subtitle
+  const dates = readings.map(r => r.date);
+  const minDate = new Date(Math.min(...dates));
+  const maxDate = new Date(Math.max(...dates));
   document.getElementById('resultsSubtitle').textContent =
-    `${periodLabel(period, year, month)} • ${readings.length.toLocaleString('he-IL')} קריאות • ${totalKwh.toFixed(1)} קוו"ש`;
+    `${periodLabel(period, year, month)} • ${readings.length.toLocaleString('he-IL')} קריאות • ${totalKwh.toFixed(1)} קוו"ש • ${durationLabel(minDate, maxDate)}`;
 
   // Table
   const tbody = document.getElementById('resultsTableBody');
@@ -514,6 +517,35 @@ function periodLabel(period, year, month) {
     return `${MONTHS_HE[Number(m) - 1]} ${y}`;
   }
   return '';
+}
+
+function durationLabel(minDate, maxDate) {
+  // Treat maxDate as inclusive: advance by 1 day so "Mar 1–Mar 31" = 1 full month
+  const end = new Date(maxDate);
+  end.setDate(end.getDate() + 1);
+
+  let years  = end.getFullYear() - minDate.getFullYear();
+  let months = end.getMonth()    - minDate.getMonth();
+  let days   = end.getDate()     - minDate.getDate();
+
+  if (days < 0) {
+    months--;
+    days += new Date(end.getFullYear(), end.getMonth(), 0).getDate();
+  }
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  const parts = [];
+  if (years  === 1) parts.push('שנה אחת');
+  else if (years  > 1) parts.push(`${years} שנים`);
+  if (months === 1) parts.push('חודש אחד');
+  else if (months > 1) parts.push(`${months} חודשים`);
+  if (days   === 1) parts.push('יום אחד');
+  else if (days   > 1) parts.push(`${days} ימים`);
+
+  return parts.length ? parts.join(' ו-') : 'פחות מיום';
 }
 
 function fmt(date) {

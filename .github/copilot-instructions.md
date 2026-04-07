@@ -13,6 +13,24 @@
   - Superpower (Electra): `/82471/supergas-electric/`
   - Amisragas: `/82501/amisragas--electric/`
 
+## Updating the IEC tariff rate
+
+### Data source
+- IEC tariff page: https://www.iec.co.il/content/tariffs/contentpages/homeelectricitytariff
+
+### Always do when editing the tariff
+- Update `value` in `index.html`: `<input type="number" id="tariffRate" value="..." ...>`
+- Update the JS fallback in `js/app.js`: `parseFloat(...) || <rate>`
+- Update the year label in the note in `index.html` (e.g. `0.6432 ₪/קוו"ש (2025)`)
+- The rate shown is **כולל מע"מ** (VAT-inclusive), רכיב **צריכה לקוו"ש** only
+
+### Current rate
+- **0.6432 ₪/קוו"ש** כולל מע"מ (2025/2026)
+
+---
+
+## Updating `js/plans.js`
+
 ### Always do when editing plans.js
 - Update `PLANS_LAST_UPDATED` to the current Hebrew month + year (e.g. `'אפריל 2026'`)
 
