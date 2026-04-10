@@ -482,6 +482,9 @@ function renderResults(results, readings, tariff, period, year, month) {
       ? `<span class="savings-zero">—</span>`
       : `<span class="savings-positive">+${r.savingPct.toFixed(1)}%</span>`;
 
+    const discountText = r.plan.isBaseline ? '—' : (r.plan.discountLabel || r.plan.discountPercent + '%');
+    const notesText = esc(r.plan.notes || '');
+
     tr.innerHTML = `
       <td>${rankCell}</td>
       <td class="company-cell">
@@ -493,13 +496,40 @@ function renderResults(results, readings, tariff, period, year, month) {
         ${esc(r.plan.planName)}
         ${conditionHtml}
       </td>
-      <td>${r.plan.isBaseline ? '—' : (r.plan.discountLabel || r.plan.discountPercent + '%')}</td>
-      <td>${fmtMoney(r.cost)} ₪</td>
+      <td class="col-mobile-hide">${discountText}</td>
+      <td class="col-mobile-hide">${fmtMoney(r.cost)} ₪</td>
       <td>${savingHtml}</td>
       <td>${savingPctHtml}</td>
-      <td style="font-size:0.8rem;color:var(--text-muted)">${esc(r.plan.notes || '')}</td>
+      <td class="col-mobile-hide" style="font-size:0.8rem;color:var(--text-muted)">${notesText}</td>
     `;
+
+    // Build expandable detail row for mobile
+    const detailItems = [
+      { label: 'הנחה', value: discountText },
+      { label: 'עלות משוערת', value: `${fmtMoney(r.cost)} ₪` },
+    ];
+    if (notesText) detailItems.push({ label: 'הערות', value: notesText });
+
+    const detailTr = document.createElement('tr');
+    detailTr.className = 'detail-row';
+    if (r.plan.isBaseline) detailTr.classList.add('baseline-row');
+    detailTr.innerHTML = `
+      <td colspan="8">
+        <div class="detail-content">
+          ${detailItems.map(item => `
+            <div class="detail-item">
+              <span class="detail-label">${item.label}</span>
+              <span class="detail-value">${item.value}</span>
+            </div>`).join('')}
+        </div>
+      </td>
+    `;
+
+    tr.addEventListener('click', () => tr.classList.toggle('row-expanded'));
+    detailTr.addEventListener('click', () => tr.classList.remove('row-expanded'));
+
     tbody.appendChild(tr);
+    tbody.appendChild(detailTr);
   }
 
   document.getElementById('results').classList.add('visible');

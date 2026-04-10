@@ -236,9 +236,10 @@ body { min-height: 100vh; }
   border: 1px solid #a8d5b5;
 }
 .file-info.visible { display: flex; }
-.file-info .file-icon { font-size: 1.5rem; }
-.file-info .file-name { font-weight: 600; font-size: 0.95rem; }
-.file-info .file-meta { font-size: 0.82rem; color: var(--text-muted); }
+.file-info .file-icon { font-size: 1.5rem; flex-shrink: 0; }
+.file-info > div { min-width: 0; overflow: hidden; }
+.file-info .file-name { font-weight: 600; font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-info .file-meta { font-size: 0.82rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* ===== SETTINGS ===== */
 .settings-grid {
@@ -525,7 +526,23 @@ tbody td {
 }
 
 
-@media (max-width: 700px) {
+/* ===== MOBILE EXPANDABLE TABLE ===== */
+.detail-row { display: none; }
+
+@media (max-width: 1300px) {
+  #resultsTable { margin-inline: 0; max-width: 100%; }
+  .col-mobile-hide { display: none; }
+  tbody tr { cursor: pointer; }
+  tbody tr.detail-row { cursor: default; }
+  .table-wrap { overflow-x: hidden; }
+  thead th { white-space: normal; }
+  .company-cell, .plan-cell { white-space: normal; word-break: break-word; }
+  tr.row-expanded + .detail-row { display: table-row; }
+  .detail-row td { background: var(--surface2) !important; padding: 0 !important; border-bottom: 2px solid var(--primary-light); }
+  .detail-content { padding: 0.6rem 0.9rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; border-top: 1px dashed var(--border); }
+  .detail-item { display: flex; flex-direction: column; gap: 0.1rem; min-width: 100px; }
+  .detail-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+  .detail-value { font-size: 0.88rem; font-weight: 600; color: var(--text); }
   .site-header h1 { font-size: 1.6rem; }
   .results-summary { grid-template-columns: 1fr 1fr; }
   table { font-size: 0.8rem; }
