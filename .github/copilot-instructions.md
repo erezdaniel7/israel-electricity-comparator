@@ -25,7 +25,7 @@
 - The rate shown is **כולל מע"מ** (VAT-inclusive), רכיב **צריכה לקוו"ש** only
 
 ### Current rate
-- **0.6432 ₪/קוו"ש** כולל מע"מ (2025/2026)
+- **0.6352 ₪/קוו"ש** כולל מע"מ (מ-01.07.2026)
 
 ---
 
@@ -59,7 +59,7 @@
 |---|---|
 | `none` | No discount (IEC baseline) |
 | `fixed` | Flat % off all consumption |
-| `time_of_use` | % off during `discountHours` on `discountDays` |
+| `time_of_use` | % off during `discountHours` on `discountDays`. Supports windows crossing midnight (e.g. 20:00–02:00) when `discountHoursEnd` ≤ `discountHoursStart` |
 | `time_of_use_night` | Sun–Thu 23:00–07:00 night window |
 | `accumulate` | % cashback capped at `maxYearlySavings` ₪/year |
 | `tiered_monthly_amount` | Sliding % based on monthly bill amount (see below) |

@@ -1,6 +1,6 @@
-﻿// נתוני תוכניות חשמל – עודכן לאחרונה: אפריל 2026
+﻿// נתוני תוכניות חשמל – עודכן לאחרונה: יולי 2026
 // מקור: kamaze.co.il
-const PLANS_LAST_UPDATED = 'אפריל 2026';
+const PLANS_LAST_UPDATED = 'יולי 2026';
 const PLANS = [
   {
     "id": "iec_base",
@@ -41,12 +41,12 @@ const PLANS = [
     "company": "סלקום אנרג'י",
     "planName": "חוסכים ביום",
     "discountType": "time_of_use",
-    "discountPercent": 15,
+    "discountPercent": 20,
     "discountDays": [0, 1, 2, 3, 4],
     "discountHoursStart": 7,
     "discountHoursEnd": 17,
     "condition": null,
-    "notes": "הנחה של 15% בימים א'–ה' בין השעות 07:00–17:00",
+    "notes": "הנחה של 20% בימים א'–ה' בין השעות 07:00–17:00",
     "link": "https://www.kamaze.co.il/Companies/82227/Cellcom/electrical-power"
   },
   {
@@ -63,16 +63,29 @@ const PLANS = [
     "link": "https://www.kamaze.co.il/Companies/82227/Cellcom/electrical-power"
   },
   {
+    "id": "cellcom_family_plus",
+    "company": "סלקום אנרג'י",
+    "planName": "חוסכים למשפחה פלוס",
+    "discountType": "time_of_use",
+    "discountPercent": 18,
+    "discountDays": [0, 1, 2, 3, 4],
+    "discountHoursStart": 20,
+    "discountHoursEnd": 2,
+    "condition": null,
+    "notes": "הנחה של 18% בימים א'–ה' בין השעות 20:00–02:00 למחרת",
+    "link": "https://www.kamaze.co.il/Companies/82227/Cellcom/electrical-power"
+  },
+  {
     "id": "cellcom_night",
     "company": "סלקום אנרג'י",
     "planName": "חוסכים בלילה",
-    "discountType": "time_of_use_night",
-    "discountPercent": 20,
-    "discountDays": [0, 1, 2, 3, 4],
+    "discountType": "time_of_use",
+    "discountPercent": 15,
+    "discountDays": [0, 1, 2, 3, 4, 5, 6],
     "discountHoursStart": 23,
     "discountHoursEnd": 7,
     "condition": null,
-    "notes": "הנחה של 20% בימים א'–ה' בין השעות 23:00–07:00",
+    "notes": "הנחה של 15% בכל ימות השבוע (כולל סוף השבוע) בין השעות 23:00–07:00",
     "link": "https://www.kamaze.co.il/Companies/82227/Cellcom/electrical-power"
   },
   {
@@ -80,12 +93,12 @@ const PLANS = [
     "company": "סלקום אנרג'י",
     "planName": "חוסכים קבוע",
     "discountType": "fixed",
-    "discountPercent": 5,
+    "discountPercent": 6,
     "discountDays": [],
     "discountHoursStart": null,
     "discountHoursEnd": null,
     "condition": null,
-    "notes": "הנחה קבועה בכל שעות היממה: שנה ראשונה 5%, שנה שנייה ואילך 6% (מוצג כאן כ-5%)",
+    "notes": "הנחה קבועה של 6% בכל שעות היממה, בכל ימות השבוע",
     "link": "https://www.kamaze.co.il/Companies/82227/Cellcom/electrical-power"
   },
   {
@@ -171,12 +184,12 @@ const PLANS = [
     "company": "סופר פאוור (אלקטרה פאוור)",
     "planName": "מסלול יום",
     "discountType": "time_of_use",
-    "discountPercent": 16,
+    "discountPercent": 21,
     "discountDays": [0, 1, 2, 3, 4],
     "discountHoursStart": 7,
     "discountHoursEnd": 17,
     "condition": null,
-    "notes": "הנחה של 16% בימים א'–ה' בין השעות 07:00–17:00",
+    "notes": "הנחה של 21% בימים א'–ה' בין השעות 07:00–17:00",
     "link": "https://www.kamaze.co.il/Companies/82471/supergas-electric/electrical-power"
   },
   {
@@ -193,16 +206,16 @@ const PLANS = [
     "link": "https://www.kamaze.co.il/Companies/82471/supergas-electric/electrical-power"
   },
   {
-    "id": "superpower_green",
+    "id": "superpower_10x10",
     "company": "סופר פאוור (אלקטרה פאוור)",
-    "planName": "מסלול GREEN",
-    "discountType": "fixed",
-    "discountPercent": 3.5,
-    "discountDays": [],
-    "discountHoursStart": null,
-    "discountHoursEnd": null,
-    "condition": null,
-    "notes": "הנחה קבועה של 3.5% – 100% חשמל ירוק המיוצר בשדות סולריים",
+    "planName": "מסלול 10X10",
+    "discountType": "time_of_use",
+    "discountPercent": 10,
+    "discountDays": [0, 1, 2, 3, 4],
+    "discountHoursStart": 10,
+    "discountHoursEnd": 22,
+    "condition": "הצטרפות באתר סופר פאוור בלבד",
+    "notes": "הנחה של 10% בימים א'–ה' בין השעות 10:00–22:00 (מסלול חדש שהחליף את מסלול ה-GREEN)",
     "link": "https://www.kamaze.co.il/Companies/82471/supergas-electric/electrical-power"
   },
   {

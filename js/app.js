@@ -260,7 +260,7 @@ function runAnalysis() {
   // Defer to let the UI update
   setTimeout(() => {
     try {
-      const tariff = parseFloat(document.getElementById('tariffRate').value) || 0.6432;
+      const tariff = parseFloat(document.getElementById('tariffRate').value) || 0.6352;
       const period = document.getElementById('periodType').value;
       const year = parseInt(document.getElementById('yearSelect').value);
       const month = document.getElementById('monthSelect').value;
@@ -326,15 +326,25 @@ function calcPlanCost(readings, plan, tariff) {
   }
 
   if (plan.discountType === 'time_of_use') {
-    // Discount applies only during specific hours on specific days
+    // Discount applies only during specific hours on specific days.
+    // Supports windows that cross midnight (e.g. 20:00-02:00) when discountHoursEnd <= discountHoursStart.
     let discountedKwh = 0;
     let normalKwh = 0;
     const { discountDays, discountHoursStart: hs, discountHoursEnd: he } = plan;
+    const wraps = he <= hs;
 
     for (const r of readings) {
       const dow = r.date.getDay();   // 0=Sun, 1=Mon, ..., 6=Sat
       const hour = r.date.getHours();
-      if (discountDays.includes(dow) && hour >= hs && hour < he) {
+      let inWindow;
+      if (!wraps) {
+        inWindow = discountDays.includes(dow) && hour >= hs && hour < he;
+      } else {
+        // Window starts on a discountDays day at hs and continues past midnight until he the next day
+        const prevDow = (dow + 6) % 7;
+        inWindow = (discountDays.includes(dow) && hour >= hs) || (discountDays.includes(prevDow) && hour < he);
+      }
+      if (inWindow) {
         discountedKwh += r.kwh;
       } else {
         normalKwh += r.kwh;
